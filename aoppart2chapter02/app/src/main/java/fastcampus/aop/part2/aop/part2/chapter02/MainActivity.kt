@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
@@ -75,8 +76,9 @@ class MainActivity : AppCompatActivity() {
 
                 textView.text = number.toString()
                 textView.isVisible = true
-            }
 
+                setNumberBackground(number,textView)
+            }
 
         }
     }
@@ -99,6 +101,9 @@ class MainActivity : AppCompatActivity() {
             textView.isVisible =true
             textView.text = numberPicker.value.toString()
 
+
+            setNumberBackground(numberPicker.value,textView)
+
             pickNumberSet.add(numberPicker.value)
         }
     }
@@ -116,6 +121,16 @@ class MainActivity : AppCompatActivity() {
         numberList.shuffle()
         val newList = pickNumberSet.toList() + numberList.subList(0,6 - pickNumberSet.size)
         return newList.sorted()
+    }
+
+    private fun setNumberBackground(number:Int,textView: TextView){
+        when(number){
+            in 1..10 -> textView.background = ContextCompat.getDrawable(this,R.drawable.circle_y)
+            in 11..20 -> textView.background = ContextCompat.getDrawable(this,R.drawable.cicle_b)
+            in 21..30 -> textView.background = ContextCompat.getDrawable(this,R.drawable.circle_r)
+            in 31..40 -> textView.background = ContextCompat.getDrawable(this,R.drawable.circle_g)
+            else -> textView.background = ContextCompat.getDrawable(this,R.drawable.circle_green)
+        }
     }
 
 }
