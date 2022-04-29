@@ -1,6 +1,7 @@
 package fastcampus.aop.part2.chapter3
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -64,9 +65,7 @@ class MainActivity : AppCompatActivity() {
             val passwordFromUser = "${numberPicker1.value}${numberPicker2.value}${numberPicker3.value}"
 
             if(passwordPreferences.getString("password","000").equals(passwordFromUser)){
-                changePasswordMode = true
-                Toast.makeText(this,"변경할 패스워드를 입력해주세요",Toast.LENGTH_SHORT).show()
-                changePasswordButton.setBackgroundColor(Color.RED)
+                startActivity(Intent(this,DiaryActivity::class.java))
 
             }else{
                 showErrorAlertDialog()
