@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
 import kotlin.concurrent.timer
 
 class PhotoFrameActivity : AppCompatActivity() {
@@ -11,6 +12,8 @@ class PhotoFrameActivity : AppCompatActivity() {
     private val photoList = mutableListOf<Uri>()
 
     private var currentPosition =0
+
+    private var timer : Timer? = null
 
     private val photoImageView : ImageView by lazy {
         findViewById<ImageView>(R.id.photoImageView)
@@ -40,7 +43,7 @@ class PhotoFrameActivity : AppCompatActivity() {
     }
 
     private fun startTimer(){
-        timer(period =5*1000){
+        timer = timer(period =5*1000){
             runOnUiThread {
                 val current = currentPosition
                 val next = if(photoList.size <= currentPosition +1) 0 else currentPosition+1
@@ -57,6 +60,24 @@ class PhotoFrameActivity : AppCompatActivity() {
                 currentPosition = next
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        timer?.cancel()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        startTimer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        timer?.cancel()
     }
 
 
