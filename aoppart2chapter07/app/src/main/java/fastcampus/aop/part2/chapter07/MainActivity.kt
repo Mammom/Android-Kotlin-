@@ -11,6 +11,10 @@ import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
+    private val soundVisualizerView: SoundVisualizerView by lazy{
+        findViewById(R.id.soundVisualizerView)
+    }
+
     private val resetButton:Button by lazy {
         findViewById(R.id.resetButton)
     }
@@ -25,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         "${externalCacheDir?.absolutePath}/recording.3gp"
     }
 
+    private val CountUpTextView : CountUpTextView by lazy {
+        findViewById(R.id.recordTimeTextView)
+    }
     private var player :MediaPlayer? = null
     private var recorder:MediaRecorder? = null
     private var state = State.BEFORE_RECORDING
@@ -73,6 +80,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindView(){
+        soundVisualizerView.onRequestCurrentAmplitude={
+            recorder?.maxAmplitude?:0
+        }
         resetButton.setOnClickListener {
             stopPlaying()
             state =State.BEFORE_RECORDING
@@ -108,14 +118,18 @@ class MainActivity : AppCompatActivity() {
             prepare()
         }
         recorder?.start()
+        soundVisualizerView.startVisualizing(false)
+        CountUpTextView.startCountUp()
         state = State.ON_RECORDING
     }
 
     private fun stopRecording(){
+        soundVisualizerView.stopVisualizing()
         recorder?.run{
             stop()
             release()
         }
+        CountUpTextView.stopCountUp()
         recorder = null
         state = State.AFTER_RECORDING
     }
@@ -128,12 +142,16 @@ class MainActivity : AppCompatActivity() {
             }
         player?.start()
         state = State.ON_PLAYING
+        CountUpTextView.startCountUp()
+        soundVisualizerView.startVisualizing(true)
     }
 
     private fun stopPlaying(){
         player?.release()
         player = null
         state = State.AFTER_RECORDING
+        CountUpTextView.stopCountUp()
+        soundVisualizerView.stopVisualizing()
     }
 
     companion object{
