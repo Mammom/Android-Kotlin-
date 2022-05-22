@@ -12,7 +12,7 @@
 |---|---|
 BMI Calculator|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_1.md)
 Lottery Number Machine|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_2.md)
-Secret Diary|[Repositorie]
+Secret Diary|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_3.md)
 Calculator|[Repositorie] 
 Electronic Picture Frame |[Repositorie]
 Pomodoro Timer |[Repositorie]
