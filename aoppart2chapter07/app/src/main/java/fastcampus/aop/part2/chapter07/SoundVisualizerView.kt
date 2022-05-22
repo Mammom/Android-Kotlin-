@@ -7,31 +7,31 @@ import android.util.AttributeSet
 import android.view.View
 import kotlin.random.Random
 
-class SoundVisualizerView (
+class SoundVisualizerView(
     context: Context,
-    attrs: AttributeSet?=null
-) : View(context, attrs){
+    attrs: AttributeSet? = null
+) : View(context, attrs) {
 
-    var onRequestCurrentAmplitude:(()->Int)? = null
+    var onRequestCurrentAmplitude: (() -> Int)? = null
 
     private val amplitudePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.getColor(R.color.purple_500)
         strokeWidth = LINE_WIDTH
         strokeCap = Paint.Cap.ROUND
     }
-    private var drawingWidth:Int =0
-    private var drawingHeight:Int =0
-    private var drawingAmplitudes:List<Int> = emptyList()
-    private var isReplaying :Boolean = false
-    private var replayingPosition :Int=0
+    private var drawingWidth: Int = 0
+    private var drawingHeight: Int = 0
+    private var drawingAmplitudes: List<Int> = emptyList()
+    private var isReplaying: Boolean = false
+    private var replayingPosition: Int = 0
 
 
-    private val visualizeRepeatAction:Runnable=object :Runnable{
+    private val visualizeRepeatAction: Runnable = object : Runnable {
         override fun run() {
             if (!isReplaying) {
                 val currentAmplitude = onRequestCurrentAmplitude?.invoke() ?: 0
                 drawingAmplitudes = listOf(currentAmplitude) + drawingAmplitudes
-            }else{
+            } else {
                 replayingPosition++
             }
             invalidate()
@@ -42,8 +42,8 @@ class SoundVisualizerView (
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        drawingWidth =w
-        drawingHeight =h
+        drawingWidth = w
+        drawingHeight = h
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -51,48 +51,54 @@ class SoundVisualizerView (
 
         canvas ?: return
 
-        val centerY = drawingHeight /2f
+        val centerY = drawingHeight / 2f
         var offsetX = drawingWidth.toFloat()
 
         drawingAmplitudes
-            .let { amplitudes->
-                if(isReplaying){
+            .let { amplitudes ->
+                if (isReplaying) {
                     amplitudes.takeLast(replayingPosition)
-                }else{
+                } else {
                     amplitudes
                 }
             }
-            .forEach{ amplitude ->
-            val lineLength = amplitude / MAX_AMPLITUDE * drawingHeight * 0.8F
+            .forEach { amplitude ->
+                val lineLength = amplitude / MAX_AMPLITUDE * drawingHeight * 0.8F
 
-            offsetX -= LINE_SPACE
-            if (offsetX <0) return@forEach
+                offsetX -= LINE_SPACE
+                if (offsetX < 0) return@forEach
 
-            canvas.drawLine(
-                offsetX,
-                centerY - lineLength /2F,
-                offsetX,
-                centerY + lineLength/2F,
-                amplitudePaint
-            )
+                canvas.drawLine(
+                    offsetX,
+                    centerY - lineLength / 2F,
+                    offsetX,
+                    centerY + lineLength / 2F,
+                    amplitudePaint
+                )
 
-        }
+            }
     }
 
-    fun startVisualizing(isReplaying :Boolean){
+    fun startVisualizing(isReplaying: Boolean) {
         this.isReplaying = isReplaying
         handler?.post(visualizeRepeatAction)
     }
 
-    fun stopVisualizing(){
+    fun stopVisualizing() {
+        replayingPosition = 0
         handler?.removeCallbacks(visualizeRepeatAction)
     }
 
-    companion object{
+    fun clearVisualization() {
+        drawingAmplitudes = emptyList()
+        invalidate()
+    }
+
+    companion object {
         private const val LINE_WIDTH = 10F
         private const val LINE_SPACE = 15F
         private const val MAX_AMPLITUDE = Short.MAX_VALUE.toFloat()
-        private const val ACTION_INTERVAL =20L
+        private const val ACTION_INTERVAL = 20L
     }
 
 }
