@@ -12,8 +12,8 @@
 |---|---|
 BMI Calculator|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_1.md)
 Lottery Number Machine|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_2.md)
-Secret Diary|[Repositorie]
-Calculator|[Repositorie] 
-Electronic Picture Frame |[Repositorie]
-Pomodoro Timer |[Repositorie]
-Recorder |[Repositorie]
+Secret Diary|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_3.md)
+Calculator|[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_4.md)
+Electronic Picture Frame |[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_5.md)
+Pomodoro Timer |[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_6.md)
+Recorder |[Repositorie](https://github.com/Mammom/Android-Kotlin-/blob/main/Retrospect/Chapter2_7.md)
