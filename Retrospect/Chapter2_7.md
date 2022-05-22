@@ -3,8 +3,8 @@
 <br />
 <p align="center">
   
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169694991-b4446781-84ad-4959-9789-ca9d24fe0a89.png">
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169695017-3a836dfb-c50e-486f-9fe7-850a6b0a4d79.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169699209-469cc1e7-afb4-429d-949e-a712c6195ea1.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169699225-5c589d68-8b10-4853-9acf-529320413605.png">
 </p>
 
 ## 강의에서 배운점
