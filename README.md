@@ -1,6 +1,6 @@
 # Android-Kotlin-
 패스트 캠퍼스 -> 30개 프로젝트로 배우는 Android 앱 개발 with Kotlin
-## 🤖 Androdi Kotlin Study Target
+## 🤖 Android Kotlin Study Target
 - 인터넷 강의(패스트캠퍼스)를 기반으로 실력을 점핑하고자 한다.
 - 프로젝트를 따라해보며 앱 개발에 필요한기술을 학습할 수 있습니다.
 - 앱 개발시 원하는 기능을 구현하기위해 어떤기술이 필요한지 알 수 있습니다.
