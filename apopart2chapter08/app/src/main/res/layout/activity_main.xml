@@ -45,12 +45,14 @@
             android:id="@+id/addressBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="textUri"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/goHomeButton"
             app:layout_constraintRight_toLeftOf="@id/goBackButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -58,9 +60,9 @@
         android:id="@+id/webView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
