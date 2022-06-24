@@ -7,8 +7,21 @@ import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
+import android.widget.ImageButton
 
 class MainActivity : AppCompatActivity() {
+
+    private val goHomeButton:ImageButton by lazy {
+        findViewById(R.id.goHomeButton)
+    }
+
+    private val goBackButton:ImageButton by lazy {
+        findViewById(R.id.goBackButton)
+    }
+
+    private val goForwardButton:ImageButton by lazy {
+        findViewById(R.id.goForwardButton)
+    }
 
     private val addressBar :EditText by lazy {
         findViewById(R.id.addressBar)
@@ -25,16 +38,29 @@ class MainActivity : AppCompatActivity() {
         bindView()
     }
 
+    override fun onBackPressed() {
+        if (webView.canGoBack()){
+            webView.goBack()
+        }else{
+            super.onBackPressed()
+        }
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun initViews(){
         webView.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
-            loadUrl("https://www.google.com")
+            loadUrl(DEFAULT_URL)
         }
     }
 
     private fun bindView(){
+
+        goHomeButton.setOnClickListener {
+            webView.loadUrl(DEFAULT_URL)
+        }
+
         addressBar.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE){
                 webView.loadUrl(v.text.toString())
@@ -42,5 +68,17 @@ class MainActivity : AppCompatActivity() {
 
             return@setOnEditorActionListener false
         }
+
+        goBackButton.setOnClickListener {
+            webView.goBack()
+        }
+
+        goForwardButton.setOnClickListener {
+            webView.goForward()
+        }
+    }
+
+    companion object{
+        private const val DEFAULT_URL = "http://www.google.com"
     }
 }
