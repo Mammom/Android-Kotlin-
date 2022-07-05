@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews(){
         viewPager.adapter = QuotesPagerAdapter(
             listOf(
-                
+
                     Quote(
                 "-나는 생각한다. 고로 나는 존재한다.",
                 "-데카르트"
