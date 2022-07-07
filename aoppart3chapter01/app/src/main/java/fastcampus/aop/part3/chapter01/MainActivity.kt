@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
-    private val resultTextView : TextView by lazy {
+
+    private val resultTextView: TextView by lazy {
         findViewById(R.id.resultTextView)
     }
 
-    private val firebaseTokenView :TextView by lazy {
+    private val firebaseToken: TextView by lazy {
         findViewById(R.id.firebaseTokenTextView)
     }
 
