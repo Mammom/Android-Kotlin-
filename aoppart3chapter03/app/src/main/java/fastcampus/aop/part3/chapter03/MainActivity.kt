@@ -1,5 +1,7 @@
 package fastcampus.aop.part3.chapter03
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
@@ -19,26 +21,50 @@ class MainActivity : AppCompatActivity() {
         initOnOffButton()
         initChangeAlarmTimeButton()
 
-
         val model = fetchDataFromSharedPreferences()
         renderView(model)
-        //데이터 가져오기
-
-        // 뷰에 데이터를 그려주기
 
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun initOnOffButton(){
         val onOffButton = findViewById<Button>(R.id.onOffButton)
-
         onOffButton.setOnClickListener {
-            // 데이터를 확인하다.
 
-            // 온오프에 따라 작업을 처리한다.
+            val model = it.tag as? AlarmDisplayModel ?: return@setOnClickListener
+            val newModel = savaAlarmModel(model.hour, model.minute, model.onOff.not())
+            renderView(newModel)
 
-            //오프 -> 알람을 제거
-            // 온 -> 알람을 등록
+            if (newModel.onOff){
+                //켜진 경우 -> 알람을 등록
+                val calendar = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, newModel.hour)
+                    set(Calendar.MINUTE, newModel.minute)
 
+                    //지나간 시간일 경우 다음날에 알람이 등록되게 한다.
+                    if (before(Calendar.getInstance())){
+                        add(Calendar.DATE,1)
+                    }
+                }
+
+                val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val intent = Intent(this, AlarmReceiver::class.java)
+                val pendingIntent = PendingIntent.getBroadcast(
+                    this,
+                    ALARM_REQUEST_CODE,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+                alarmManager.setInexactRepeating( //정시에 울리고 매일 반복하는 형태
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+                )
+
+            }else{
+                cancelAlarm()
+            }
 
         }
 
@@ -50,12 +76,12 @@ class MainActivity : AppCompatActivity() {
 
             val calendar = Calendar.getInstance()
 
-            TimePickerDialog(this, { picker, hour, minute ->
+            TimePickerDialog(this, { _, hour, minute ->
 
                 val model = savaAlarmModel(hour, minute, false)
                 renderView(model)
+                cancelAlarm()
 
-                //기존에 있던 알람을 삭제한다.
 
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
                 .show()
@@ -72,20 +98,21 @@ class MainActivity : AppCompatActivity() {
         val model = AlarmDisplayModel(
             hour = hour,
             minute = minute,
-            onOff = false
+            onOff = onOff
         )
 
-        val sharedPreferences = getSharedPreferences("SHARED_PREFERENCES_NAME", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
         with(sharedPreferences.edit()) {
-            putString("ALARM_KEY", model.makeDataForDB())
-            putBoolean("ONOFF_KEY",model.onOff)
+            putString(ALARM_KEY, model.makeDataForDB())
+            putBoolean(ONOFF_KEY,model.onOff)
             commit()
         }
 
         return model
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun fetchDataFromSharedPreferences() : AlarmDisplayModel {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE)
 
@@ -99,21 +126,21 @@ class MainActivity : AppCompatActivity() {
             onOff = onOffDBValue
         )
 
-//        val pendingIntent = PendingIntent.getBroadcast(
-//            this,
-//            ALARM_REQUEST_CODE,
-//            Intent(this,AlarmReceiver::class.java),
-//            PendingIntent.FLAG_NO_CREATE
-//        )
-//
-//        if ((pendingIntent == null) and alarmModel.onOff){
-//            //알람은 꺼져잇는데, 데이터는 켜져있는경우
-//            alarmModel.onOff = false
-//
-//        }else if ((pendingIntent != null) and alarmModel.onOff.not()){
-//            //알람은 켜져있는데, 데이터는 꺼져있는 경우
-//            pendingIntent.cancel()
-//        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            ALARM_REQUEST_CODE,
+            Intent(this,AlarmReceiver::class.java),
+            PendingIntent.FLAG_NO_CREATE
+        )
+
+        if ((pendingIntent == null) and alarmModel.onOff){
+            //알람은 꺼져잇는데, 데이터는 켜져있는경우
+            alarmModel.onOff = false
+
+        }else if ((pendingIntent != null) and alarmModel.onOff.not()){
+            //알람은 켜져있는데, 데이터는 꺼져있는 경우
+            pendingIntent.cancel()
+        }
 
         return alarmModel
     }
@@ -131,6 +158,17 @@ class MainActivity : AppCompatActivity() {
             text = model.onOffText
             tag = model
         }
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun cancelAlarm(){
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            ALARM_REQUEST_CODE,
+            Intent(this,AlarmReceiver::class.java),
+            PendingIntent.FLAG_NO_CREATE
+        )
+        pendingIntent?.cancel()
     }
 
 
