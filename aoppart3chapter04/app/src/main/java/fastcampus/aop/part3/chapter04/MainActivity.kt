@@ -7,11 +7,14 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import fastcampus.aop.part3.chapter04.adapter.BookAdapter
 import fastcampus.aop.part3.chapter04.api.BookService
 import fastcampus.aop.part3.chapter04.databinding.ActivityMainBinding
 import fastcampus.aop.part3.chapter04.model.BestSellerDto
+import fastcampus.aop.part3.chapter04.model.History
 import fastcampus.aop.part3.chapter04.model.SearchBookDto
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,7 +23,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: BookAdapter
+
+    private lateinit var historyAdapter: HistoryAdapter
+
     private lateinit var bookService: BookService
+
+    private lateinit var db:AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +36,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initBookRecyclerView()
+
+        db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "BookSearchDB"
+        ).build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://book.interpark.com")
@@ -45,13 +59,13 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     // 성공
 
+                    saveSearchKeyWord(keyword)
+
                     if (response.isSuccessful.not()) {
                         Log.e(TAG, "NOT!! success")
                         return
                     }
-                    response.body()?.let {
-                        adapter.submitList(it.books)
-                    }
+                    adapter.submitList(response.body()?.books.orEmpty())
                 }
 
                 override fun onFailure(call: Call<BestSellerDto>, t: Throwable) {
@@ -81,9 +95,7 @@ class MainActivity : AppCompatActivity() {
                         Log.e(TAG, "NOT!! success")
                         return
                     }
-                    response.body()?.let {
-                        adapter.submitList(it.books)
-                    }
+                    adapter.submitList(response.body()?.books.orEmpty())
                 }
 
                 override fun onFailure(call: Call<SearchBookDto>, t: Throwable) {
@@ -100,6 +112,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.bookRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.bookRecyclerView.adapter = adapter
+    }
+
+    private fun showHistoryView(){
+        Thread{
+            val keywords = db.historyDao().getAll().reversed()
+        }
+
+        binding.historyRecyclerView.isVisible = true
+    }
+
+    private fun hideHistoryView(){
+        binding.historyRecyclerView.isVisible = false
+    }
+
+    private fun saveSearchKeyWord(keyword: String){
+        Thread{
+            db.historyDao().insertHistory(History(null,keyword))
+        }.start()
     }
 
     companion object {
