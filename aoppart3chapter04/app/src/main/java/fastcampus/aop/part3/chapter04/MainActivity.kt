@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import fastcampus.aop.part3.chapter04.adapter.BookAdapter
+import fastcampus.aop.part3.chapter04.adapter.HistoryAdapter
 import fastcampus.aop.part3.chapter04.api.BookService
 import fastcampus.aop.part3.chapter04.databinding.ActivityMainBinding
 import fastcampus.aop.part3.chapter04.model.BestSellerDto
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initBookRecyclerView()
+        initHistoryRecyclerView()
+
 
         db = Room.databaseBuilder(
             applicationContext,
@@ -59,8 +62,6 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     // 성공
 
-                    saveSearchKeyWord(keyword)
-
                     if (response.isSuccessful.not()) {
                         Log.e(TAG, "NOT!! success")
                         return
@@ -74,13 +75,8 @@ class MainActivity : AppCompatActivity() {
 
             })
 
-        binding.searchEditText.setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == MotionEvent.ACTION_DOWN) {
-                search(binding.searchEditText.text.toString())
-                return@setOnKeyListener true
-            }
-            return@setOnKeyListener false
-        }
+
+
     }
 
     private fun search(keyword: String) {
@@ -91,6 +87,10 @@ class MainActivity : AppCompatActivity() {
                     call: Call<SearchBookDto>,
                     response: Response<SearchBookDto>
                 ) {
+
+                    hideHistoryView()
+                    saveSearchKeyWord(keyword)
+
                     if (response.isSuccessful.not()) {
                         Log.e(TAG, "NOT!! success")
                         return
@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<SearchBookDto>, t: Throwable) {
+                    hideHistoryView()
                     Log.e(TAG, t.toString())
                 }
 
@@ -114,10 +115,40 @@ class MainActivity : AppCompatActivity() {
         binding.bookRecyclerView.adapter = adapter
     }
 
+    private fun initHistoryRecyclerView(){
+        historyAdapter = HistoryAdapter(historyDelecteClickedListener = {
+            deleteSearchKeyword(it)
+        })
+
+        binding.historyRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.historyRecyclerView.adapter = historyAdapter
+        initSearchEditText()
+    }
+
+    private fun initSearchEditText(){
+        binding.searchEditText.setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == MotionEvent.ACTION_DOWN) {
+                search(binding.searchEditText.text.toString())
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
+        binding.searchEditText.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN){
+                showHistoryView()
+            }
+            return@setOnTouchListener false
+        }
+    }
+
     private fun showHistoryView(){
         Thread{
             val keywords = db.historyDao().getAll().reversed()
-        }
+            runOnUiThread{
+                binding.historyRecyclerView.isVisible =true
+                historyAdapter.submitList(keywords.orEmpty())
+            }
+        }.start()
 
         binding.historyRecyclerView.isVisible = true
     }
@@ -129,6 +160,13 @@ class MainActivity : AppCompatActivity() {
     private fun saveSearchKeyWord(keyword: String){
         Thread{
             db.historyDao().insertHistory(History(null,keyword))
+        }.start()
+    }
+
+    private fun deleteSearchKeyword(keyword : String){
+        Thread{
+            db.historyDao().delete(keyword)
+            showHistoryView()
         }.start()
     }
 
