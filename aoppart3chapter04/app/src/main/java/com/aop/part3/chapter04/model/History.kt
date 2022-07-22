@@ -1,4 +1,4 @@
-package fastcampus.aop.part3.chapter04.model
+package com.aop.part3.chapter04.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,4 +1,4 @@
-package fastcampus.aop.part3.chapter04.model
+package com.aop.part3.chapter04.model
 
 import com.google.gson.annotations.SerializedName
 

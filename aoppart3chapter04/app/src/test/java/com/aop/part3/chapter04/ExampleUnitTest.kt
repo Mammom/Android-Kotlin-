@@ -1,4 +1,4 @@
-package fastcampus.aop.part3.chapter04
+package com.aop.part3.chapter04
 
 import org.junit.Test
 

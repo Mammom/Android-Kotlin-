@@ -1,12 +1,12 @@
-package fastcampus.aop.part3.chapter04.adapter
+package com.aop.part3.chapter04.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import fastcampus.aop.part3.chapter04.databinding.ItemHistoryBinding
-import fastcampus.aop.part3.chapter04.model.History
+import com.aop.part3.chapter04.databinding.ItemHistoryBinding
+import com.aop.part3.chapter04.model.History
 
 
 class HistoryAdapter(val historyDelecteClickedListener : (String) -> Unit) : ListAdapter<History, HistoryAdapter.HistoryItemViewHolder>(diffUtil){

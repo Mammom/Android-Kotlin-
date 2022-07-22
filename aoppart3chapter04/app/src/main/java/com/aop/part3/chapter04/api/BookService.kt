@@ -1,7 +1,7 @@
-package fastcampus.aop.part3.chapter04.api
+package com.aop.part3.chapter04.api
 
-import fastcampus.aop.part3.chapter04.model.BestSellerDto
-import fastcampus.aop.part3.chapter04.model.SearchBookDto
+import com.aop.part3.chapter04.model.BestSellerDto
+import com.aop.part3.chapter04.model.SearchBookDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

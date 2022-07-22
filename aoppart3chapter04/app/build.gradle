@@ -2,13 +2,14 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "fastcampus.aop.part3.chapter04"
+        applicationId "com.aop.part3.chapter04"
         minSdk 23
         targetSdk 32
         versionCode 1

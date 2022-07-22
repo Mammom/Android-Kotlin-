@@ -1,22 +1,21 @@
-package fastcampus.aop.part3.chapter04
+package com.aop.part3.chapter04
 
-import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
-import fastcampus.aop.part3.chapter04.adapter.BookAdapter
-import fastcampus.aop.part3.chapter04.adapter.HistoryAdapter
-import fastcampus.aop.part3.chapter04.api.BookService
-import fastcampus.aop.part3.chapter04.databinding.ActivityMainBinding
-import fastcampus.aop.part3.chapter04.model.BestSellerDto
-import fastcampus.aop.part3.chapter04.model.History
-import fastcampus.aop.part3.chapter04.model.SearchBookDto
+import com.aop.part3.chapter04.adapter.BookAdapter
+import com.aop.part3.chapter04.adapter.HistoryAdapter
+import com.aop.part3.chapter04.api.BookService
+import com.aop.part3.chapter04.databinding.ActivityMainBinding
+import com.aop.part3.chapter04.model.BestSellerDto
+import com.aop.part3.chapter04.model.History
+import com.aop.part3.chapter04.model.SearchBookDto
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -109,7 +108,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initBookRecyclerView() {
-        adapter = BookAdapter()
+        adapter = BookAdapter(itemClickedListener = {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("bookModel",it)
+            startActivity(intent)
+        })
 
         binding.bookRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.bookRecyclerView.adapter = adapter

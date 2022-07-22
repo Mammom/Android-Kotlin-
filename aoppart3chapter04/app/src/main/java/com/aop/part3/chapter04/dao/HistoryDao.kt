@@ -1,9 +1,9 @@
-package fastcampus.aop.part3.chapter04.dao
+package com.aop.part3.chapter04.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import fastcampus.aop.part3.chapter04.model.History
+import com.aop.part3.chapter04.model.History
 
 @Dao
 interface HistoryDao {
