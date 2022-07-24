@@ -2,8 +2,8 @@
 
 <br />
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/89181586/169644808-cf5345a3-267a-4ae0-8db1-04ff57c9be6b.png">
-  <img  src="https://user-images.githubusercontent.com/89181586/169644869-0d98bb5e-4907-4865-ad05-4e0dc6727009.png">
+  <img src="https://user-images.githubusercontent.com/89181586/180641864-e823b113-a23d-496b-95cd-8a513fde95b0.png">
+  <img  src="https://user-images.githubusercontent.com/89181586/180641881-f9910b88-3924-4a57-9626-5534375dc310.png">
 </p>
 
 ## 강의에서 배운점
