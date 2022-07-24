@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10sp"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -21,8 +20,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
             android:scaleType="centerCrop" />
 
         <ImageView
@@ -30,15 +27,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginBottom="5sp"
-            android:layout_marginRight="5sp"
             android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imageView13"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5sp"
             android:layout_weight="1"
             android:scaleType="centerCrop" />
 
@@ -58,7 +52,6 @@
             android:id="@+id/imageView21"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="5sp"
             android:layout_weight="1"
             android:scaleType="centerCrop" />
 
@@ -66,7 +59,6 @@
             android:id="@+id/imageView22"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="5sp"
             android:layout_weight="1"
             android:scaleType="centerCrop" />
 
@@ -80,10 +72,8 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/startPhotoFrameModeButton"
-        android:background="@drawable/background_button"
-        android:textColor="@color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="전지엑지 실행하기"
@@ -91,12 +81,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/addPhotoButton"
         android:layout_width="0dp"
-        android:background="@drawable/background_button"
-        android:textColor="@color/white"
-        android:layout_marginBottom="10sp"
         android:layout_height="wrap_content"
         android:text="사진 추가하기"
         app:layout_constraintBottom_toTopOf="@+id/startPhotoFrameModeButton"
