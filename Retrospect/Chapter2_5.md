@@ -2,10 +2,10 @@
 
 <br />
 <p align="center">
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169692563-3a926fc0-4c11-4674-a846-beaff4c46ca3.png">
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169692594-9753f096-dd29-4748-84a8-f331356f5a21.png"><br/>
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169692641-d75f4394-3b6a-4e0a-b258-73739a237338.png">
-  <img width="450" height="300" src="https://user-images.githubusercontent.com/89181586/169692695-a8d2016c-c093-452a-8621-a41757e7459a.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/180650920-59f23dff-a5f9-42f0-8300-05f901d422c3.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/180650944-195e00a3-021f-40a1-b4c5-08eb858f25c7.png"><br/>
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/180650971-ed068455-c11b-4830-8b74-2e43295f853f.png">
+  <img width="450" height="300" src="https://user-images.githubusercontent.com/89181586/180651554-e2494054-46cf-44dd-9f12-37194026fd89.png">
 </p>
 
 ## 강의에서 배운점
