@@ -3,9 +3,9 @@
 <br />
 <p align="center">
   
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169645390-e471484b-4561-44a5-90fc-af279f532fdf.png">
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169645436-4e4d2376-c446-48ae-aa27-f4e35f2f2896.png">
-  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/169645424-6221c7ec-6623-49df-84d4-84b15ad3c184.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/180648545-dc34eede-17c9-43c2-8223-20f162d906ae.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/180648562-5e8cb4d8-0152-4c3f-ada1-de7d94c95316.png">
+  <img width="300" height="450" src="https://user-images.githubusercontent.com/89181586/180648583-6a8809b4-18e8-4079-91de-6754fe903c5b.png">
 </p>
 
 ## 강의에서 배운점
