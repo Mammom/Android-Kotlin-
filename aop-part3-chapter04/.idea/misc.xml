@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/And(kotlin)/aop-part3-chapter04/app/src/main/res/drawable/background_gray_stroke_raidus_8.xml" value="0.1" />
         <entry key="..\:/And(kotlin)/aop-part3-chapter04/app/src/main/res/layout/activity_main.xml" value="0.2689969604863222" />
-        <entry key="..\:/And(kotlin)/aop-part3-chapter04/app/src/main/res/layout/item_book.xml" value="0.20275439938791126" />
+        <entry key="..\:/And(kotlin)/aop-part3-chapter04/app/src/main/res/layout/item_book.xml" value="0.22" />
       </map>
     </option>
   </component>

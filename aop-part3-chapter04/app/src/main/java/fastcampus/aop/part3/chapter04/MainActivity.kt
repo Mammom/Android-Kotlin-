@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         val bookService = retrofit.create(BookService::class.java)
 
-        bookService.getBestSellerBooks("EDE53FD0C0CDEB6833B9B64301BA5B857F4951B386CA48419AFD16C648D096CC")
+        bookService.getBestSellerBooks("B6A7933E01595C742332D272B29B10C6ABA1714E7DC1016E995DD93E2326853C")
             .enqueue(object : Callback<BestSellerDto>{
                 override fun onResponse(
                     call: Call<BestSellerDto>,
